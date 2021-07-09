@@ -1,20 +1,42 @@
-import classes from './CartItem.module.css';
+import React, { useState, useContext } from "react";
+import Context from "../context/context";
+import classes from "./CartItem.module.css";
 
 const CartItem = (props) => {
- // const price = `$${props.price.toFixed(2)}`;
-
+  const arr = ["m1", "m2", "m3", "m4"];
+  const ctx = useContext(Context);
+  const countCopy =
+    ctx.itemObject[
+      arr.findIndex((item) => {
+        return item === props.id;
+      })
+    ].count;
+  const [foodCount, setFoodCount] = useState(countCopy);
+  const price = `$${props.price.toFixed(2)}`;
+  const onPlusClickHandler = () => {
+    setFoodCount((prev) => {
+      return (prev = prev + 1);
+    });
+    ctx.setItemObject({
+      id: props.id,
+      price: props.price,
+      name: props.name,
+      count: foodCount,
+    });
+  };
+  const onMinusClickHandler = () => {};
   return (
-    <li className={classes['cart-item']}>
+    <li className={classes["cart-item"]}>
       <div>
-        <h2>Schnitzel{/*{props.name}*/}</h2>
+        <h2>{props.name}</h2>
         <div className={classes.summary}>
-          <span className={classes.price}>$16.5{/*{price}*/}</span>
-          <span className={classes.amount}>x 2{/*{props.amount}*/}</span>
+          <span className={classes.price}>{price}</span>
+          <span className={classes.amount}>x{countCopy}</span>
         </div>
       </div>
       <div className={classes.actions}>
-        <button onClick={props.onRemove}>−</button>
-        <button onClick={props.onAdd}>+</button>
+        <button onClick={onMinusClickHandler}>−</button>
+        <button onClick={onPlusClickHandler}>+</button>
       </div>
     </li>
   );
