@@ -14,9 +14,17 @@ function App() {
     setTotalItem(val);
   };
   const setIsCartClickedHandler = (event) => {
-    if (event.target.classList[1] === "oneone" || event.target.id === "oneone")
+    if (
+      event.target.classList[1] === "oneone" ||
+      event.target.id === "oneone"
+    ) {
       setIsCartClicked(true);
-    else setIsCartClicked(false);
+    }
+     else
+      {
+        setIsCartClicked(false);
+        
+    }
   };
   const setItemObjectHandler = (val) => {
     //console.log(itemObject);
@@ -77,11 +85,11 @@ function App() {
         pos = -1;
         break;
     }
-      setItemCount([
-        ...itemCount.slice(0, pos),
-        itemCount[pos] - 1,
-        ...itemCount.slice(pos + 1),
-      ]);
+    setItemCount([
+      ...itemCount.slice(0, pos),
+      itemCount[pos] - 1,
+      ...itemCount.slice(pos + 1),
+    ]);
   };
   return (
     <ContextMeal.Provider
