@@ -3,21 +3,24 @@ import CartItem from "../CartItem";
 import ModalFooter from "./ModalFooter";
 import classes from "../Modal.module.css";
 import Context from "../../context/context";
+import Dummy from "../dummy-meals";
 const Modal = () => {
   const ctx = useContext(Context);
+
   return (
     <React.Fragment>
       <div className={classes.backdrop}></div>
       <div className={classes.modal}>
-        {ctx.itemObject.map((item) => {
+        {Dummy.map((item, index) => {
           return (
-            <CartItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              price={item.price}
-              amount={item.count}
-            />
+            ctx.itemObject[index] > 0 && (
+              <CartItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                price={item.price}
+              />
+            )
           );
         })}
 

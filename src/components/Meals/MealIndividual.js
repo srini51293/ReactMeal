@@ -1,22 +1,56 @@
-import React, { useState, useContext } from "react";
+import React,{useContext}  from "react";
 import classform from "../MealItemForm.module.css";
 import classes from "../MealItem.module.css";
 import classinput from "../Input.module.css";
-import Context from "../../context/context";
+import Context from "../../context/context"
 const MealIndividual = (props) => {
-  const arr = ["m1", "m2", "m3", "m4"];
-  const totalCtx = useContext(Context);
-  const [mealItemCount, setMealItemCount] = useState(0);
+  // const arr = ["m1", "m2", "m3", "m4"];
+   const totalCtx = useContext(Context);
+   let pos;
+   switch(props.itemid){
+    case 'm1':
+      pos=0;
+      break;
+    case 'm2':
+     pos=1;
+     break;
+    case 'm3':
+     pos=2;
+     break;
+    case 'm4':
+     pos=3;
+     break;
+     default :
+     pos=-1
+     break;
+   }
+  // const [mealItemCount, setMealItemCount] = useState(0);
+  // console.log((totalCtx.itemObject[0]));
   const onClickHandler = (event) => {
-    setMealItemCount((prev) => ( event.target.value= prev + 1));
-    totalCtx.setTotalItem((totalCtx.totalItem += 1));
-    totalCtx.setItemObject({
-      id: props.itemid,
-      price: props.price,
-      name: props.name,
-      count: +mealItemCount,
-    });
+    props.setCountOfItem(props.itemid);
+    //alert("hello");
+    // setMealItemCount((mealItemCount!==0?
+    //   totalCtx.itemObject[
+    //     arr.findIndex((item) => {
+    //       return item === props.itemid;
+    //     })
+    //   ].count
+    // : mealItemCount) + 1);
+    // setMealItemCount((totalCtx.itemObject[
+    //        arr.findIndex((item) => {
+    //          return item === props.itemid;
+    //        })
+    //      ].count)+1)
+     totalCtx.setTotalItem((totalCtx.totalItem += 1));
   };
+  // useEffect(() => {
+  //   totalCtx.setItemObject({
+  //     id: props.itemid,
+  //     price: props.price,
+  //     name: props.name,
+  //     count: +mealItemCount,
+  //   });
+  // }, [mealItemCount, props.itemid,props.price,props.name,totalCtx]);
   return (
     <React.Fragment>
       <div className={classes.meal}>
@@ -36,13 +70,16 @@ const MealIndividual = (props) => {
           <input
             style={{ width: "35px" }}
             min="0"
-            value={mealItemCount!==0?
-              totalCtx.itemObject[
-                arr.findIndex((item) => {
-                  return item === props.itemid;
-                })
-              ].count
-            :mealItemCount}
+            value={totalCtx.itemObject[pos]
+            //   mealItemCount!==0?
+            //   console.log(totalCtx.itemObject[
+            //     arr.findIndex((item) => {
+            //       return item === props.itemid;
+            //     })
+            //   ])
+            // : mealItemCount
+            //mealItemCount!==0?console.log("true of mealItemCount"):console.log("false of mealItemCount")
+            }
             className={classinput.input}
             type="number"
             readOnly
